@@ -4,7 +4,7 @@
   "description": "ref: https://zenn.dev/farstep/books/learn-github-actions/viewer/create-your-first-workflow",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
