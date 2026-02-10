@@ -1,0 +1,85 @@
+name: Create Merge Pull Request
+
+on:
+  workflow_dispatch:
+    inputs:
+      head:
+        description: 'Head branch (source)'
+        required: false
+        default: 'main'
+      base:
+        description: 'Base branch (target)'
+        required: false
+        default: 'dev4'
+      title:
+        description: 'PR title (use {head} and {base} placeholders)'
+        required: false
+        default: 'Merge {head} into {base}'
+      body:
+        description: 'PR body (use {head} and {base} placeholders)'
+        required: false
+        default: 'Automated PR to merge {head} into {base}'
+      draft:
+        description: 'Open as draft? set to "true" to open draft'
+        required: false
+        default: 'false'
+  schedule:
+    - cron: '0 5 * * *' # daily at 05:00 UTC
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create or find pull request
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const inputs = context.payload.inputs || {};
+            const head = inputs.head || 'main';
+            const base = inputs.base || 'dev4';
+            const titleTemplate = inputs.title || `Merge ${head} into ${base}`;
+            const bodyTemplate = inputs.body || `Automated PR to merge ${head} into ${base}`;
+            const draft = inputs.draft === 'true';
+            const title = titleTemplate.replace('{head}', head).replace('{base}', base);
+            const body = bodyTemplate.replace('{head}', head).replace('{base}', base);
+
+            // Check for existing open PR from head -> base
+            const pulls = await github.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              head: `${context.repo.owner}:${head}`,
+              base
+            });
+            if (pulls.data && pulls.data.length > 0) {
+              console.log(`Open PR already exists: #${pulls.data[0].number} ${pulls.data[0].html_url}`);
+              return;
+            }
+
+            // Verify head branch exists
+            try {
+              await github.repos.getBranch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                branch: head
+              });
+            } catch (err) {
+              throw new Error(`Head branch "${head}" not found.`);
+            }
+
+            // Create PR
+            const pr = await github.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head,
+              base,
+              title,
+              body,
+              draft
+            });
+            console.log(`Created PR #${pr.data.number}: ${pr.data.html_url}`);
