@@ -49,7 +49,7 @@ jobs:
             const body = bodyTemplate.replace('{head}', head).replace('{base}', base);
 
             // Check for existing open PR from head -> base
-            const pulls = await github.pulls.list({
+            const pulls = await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
@@ -63,7 +63,7 @@ jobs:
 
             // Verify head branch exists
             try {
-              await github.repos.getBranch({
+              await github.rest.repos.getBranch({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 branch: head
@@ -73,7 +73,7 @@ jobs:
             }
 
             // Create PR
-            const pr = await github.pulls.create({
+            const pr = await github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               head,
