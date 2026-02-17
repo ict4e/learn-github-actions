@@ -23,8 +23,6 @@ on:
         description: 'Open as draft? set to "true" to open draft'
         required: false
         default: 'false'
-  schedule:
-    - cron: '0 5 * * *' # daily at 05:00 UTC
 
 permissions:
   contents: write

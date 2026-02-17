@@ -9,6 +9,9 @@ status of build and test workflow:
     - 初歩的なワークフローの作成
     - ref: https://zenn.dev/farstep/books/learn-github-actions/viewer/create-your-first-workflow
 
+
+[![Create Merge Pull Request](https://github.com/ict4e/learn-github-actions/actions/workflows/create-merge-pr.yml/badge.svg)](https://github.com/ict4e/learn-github-actions/actions/workflows/create-merge-pr.yml)
+
 - create-merge-pr.yml
     - マージPRを作成するワークフロー
     - souce : main, target : dev4 
