@@ -24,4 +24,13 @@ status of build and test workflow:
 
 - workflow-dispatch-sample.yml
     - 手動実行サンプル
+- workflow-dispatch-sample2.yml
+    - 実行時の入力フォームありサンプル
+    - ref: https://qiita.com/chihiro/items/8b2918ceb709cb9079e8
+
+
+- dispatch_and_call_inputs.yml
+- workflow-call-sample.yml
+    - ref: https://developer.mamezou-tech.com/blogs/2022/06/11/github-actions-inputs-unified/
+
 
