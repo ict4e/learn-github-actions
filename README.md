@@ -22,3 +22,6 @@ status of build and test workflow:
     - ref: https://zenn.dev/kenghaya/articles/d7f766e5db6437
 
 
+- workflow-dispatch-sample.yml
+    - 手動実行サンプル
+
