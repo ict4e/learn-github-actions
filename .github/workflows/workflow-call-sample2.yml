@@ -1,0 +1,21 @@
+name: Caller Job (pass the input with 'with' keyword)
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+
+jobs:
+  Reuse:
+    uses: ./.github/workflows/dispatch_and_call_inputs.yml
+    with:
+      loglevel: ${{ github.event.inputs.logLevel }}
+      tags: false
