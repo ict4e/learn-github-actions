@@ -1,4 +1,4 @@
-: workflow_dispatch sample on branch only
+name: workflow_dispatch sample on branch only
 
 on:
   workflow_dispatch:
