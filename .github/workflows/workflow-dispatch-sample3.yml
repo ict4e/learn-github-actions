@@ -1,0 +1,22 @@
+name: workflow_dispatch sample 3
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Target branch'
+        required: true
+        type: choice
+        options:
+        - main
+        - dev4
+        - new-githubactions
+
+
+jobs:
+  printLog:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: print log
+      run: echo "Hello! ${{ github.event.inputs.name }}"

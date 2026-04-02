@@ -27,6 +27,10 @@ status of build and test workflow:
 - workflow-dispatch-sample2.yml
     - 実行時の入力フォームありサンプル
     - ref: https://qiita.com/chihiro/items/8b2918ceb709cb9079e8
+- workflow-dispatch-sample3.yml
+    - 実行時の入力フォームにchoice型を利用
+    - ref: https://dev.classmethod.jp/articles/shoma-github-actions-introduction-create-zoo-with-choice-parameter/
+
 
 
 - dispatch_and_call_inputs.yml
